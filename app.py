@@ -104,14 +104,13 @@ st.sidebar.markdown("""
 # LOAD MODELS
 
 models = {
-    "Logistic Regression": (joblib.load("models/logistic.pkl"), True),
-    "Decision Tree": (joblib.load("models/decision_tree.pkl"), False),
-    "K-Nearest Neighbors (KNN)": (joblib.load("models/knn.pkl"), True),
-    "Naive Bayes": (joblib.load("models/naive_bayes.pkl"), False),
-    "Random Forest": (joblib.load("models/random_forest.pkl"), False)
+    "Logistic Regression": (joblib.load("models/logistic.pkl")),
+    "Decision Tree": (joblib.load("models/decision_tree.pkl")),
+    "K-Nearest Neighbors (KNN)": (joblib.load("models/knn.pkl")),
+    "Naive Bayes": (joblib.load("models/naive_bayes.pkl")),
+    "Random Forest": (joblib.load("models/random_forest.pkl"))
 }
 
-scaler = joblib.load("models/scaler.pkl")
 
 # SIDEBAR INPUTS
 
@@ -145,12 +144,8 @@ if uploaded_file is not None:
     X = df.drop("diagnosis", axis=1)
     y = df["diagnosis"]
 
-    model, use_scaled = models[selected_model]
-
-    if use_scaled:
-        X_input = scaler.transform(X)
-    else:
-        X_input = X
+    model = models[selected_model]
+    X_input = X
 
     predictions = model.predict(X_input)
     probabilities = model.predict_proba(X_input)[:, 1]
