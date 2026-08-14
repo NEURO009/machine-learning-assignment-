@@ -1,69 +1,61 @@
-# ML Assignment 2
-
-This repository contains the project structure for a machine learning task.
-
-## Structure
-- `app.py` — application entry point
-- `train.py` — model training script
-- `evaluate.py` — evaluation script
-- `dataset/` — training datasets
-- `models/` — saved model artifacts
-- `outputs/` — metrics and plots
-- `notebooks/` — exploratory notebooks
-
-## Usage
-1. Install dependencies: `pip install -r requirements.txt`
-2. Train the model: `python train.py`
-3. Evaluate: `python evaluate.py`
 # 🩺 Breast Cancer Classification using Machine Learning
 
 ## 📌 Project Overview
 
-This project implements and compares five supervised Machine Learning algorithms for classifying breast tumors as **Benign** or **Malignant** using the **Breast Cancer Wisconsin Diagnostic Dataset**.
+This project implements and compares five supervised Machine Learning algorithms for classifying breast tumors as **Benign (Non-Cancerous)** or **Malignant (Cancerous)** using the **Breast Cancer Wisconsin Diagnostic Dataset**.
 
-The project includes data preprocessing, model training, evaluation, and deployment through a **Streamlit web application**, allowing users to upload test data and compare the performance of multiple trained models.
+The project demonstrates the complete Machine Learning workflow, including:
+
+- Data preprocessing
+- Model training
+- Model evaluation
+- Performance comparison
+- Deployment using Streamlit Community Cloud
+
+The deployed web application allows users to upload a test dataset, select a trained model, visualize performance metrics, and download prediction results.
 
 ---
 
 # 🎯 Problem Statement
 
-Breast cancer is one of the most common cancers worldwide. Early detection significantly improves treatment outcomes.
+Breast cancer is one of the leading causes of cancer-related deaths among women worldwide. Early and accurate diagnosis plays a vital role in improving patient survival rates and reducing unnecessary treatments.
 
-The objective of this project is to develop a machine learning-based classification system capable of predicting whether a breast tumor is:
+The objective of this project is to develop an end-to-end Machine Learning classification system capable of predicting whether a breast tumor is:
 
-- Benign (Non-Cancerous)
-- Malignant (Cancerous)
+- **Benign (Non-Cancerous)**
+- **Malignant (Cancerous)**
 
-The application compares multiple machine learning algorithms based on different evaluation metrics.
+using diagnostic features extracted from breast tissue samples.
+
+The project compares multiple supervised Machine Learning algorithms to determine the best-performing model based on several evaluation metrics.
 
 ---
 
-# 📂 Dataset
+# 📂 Dataset Description
 
-**Dataset Name**
+### Dataset Name
 
 Breast Cancer Wisconsin (Diagnostic) Dataset
 
-**Source**
+### Source
 
 https://www.kaggle.com/datasets/uciml/breast-cancer-wisconsin-data
 
-**Target Variable**
+### Dataset Information
 
-```
-diagnosis
-```
+- Total Samples: **569**
+- Total Features: **30 Numerical Features**
+- Target Variable: **diagnosis**
+- Classification Type: **Binary Classification**
 
-Values:
+### Target Classes
 
-- B → Benign
-- M → Malignant
+| Value | Class |
+|-------|--------|
+| 0 | Benign |
+| 1 | Malignant |
 
-Dataset contains:
-
-- 569 samples
-- 30 numerical features
-- Binary classification problem
+The dataset contains various numerical measurements extracted from digitized images of breast mass cell nuclei.
 
 ---
 
@@ -71,32 +63,74 @@ Dataset contains:
 
 The following preprocessing steps were performed:
 
-- Removed ID column
-- Removed empty "Unnamed: 32" column
+- Removed unnecessary **ID** column
+- Removed empty **Unnamed: 32** column
 - Encoded target variable
   - Benign → 0
   - Malignant → 1
-- Train-Test Split (80:20)
-- Stratified sampling
-- Feature Scaling using StandardScaler (for Logistic Regression and KNN)
+- Performed Train-Test Split (80:20)
+- Used Stratified Sampling to preserve class distribution
 
 ---
 
-# 🤖 Machine Learning Models
+# 🤖 Machine Learning Models Used
 
-The following models were implemented:
+The following Machine Learning models were implemented and compared:
 
 1. Logistic Regression
 2. Decision Tree
 3. K-Nearest Neighbors (KNN)
 4. Gaussian Naive Bayes
-5. Random Forest
+5. Random Forest (Ensemble)
+
+---
+
+# 📊 Model Comparison
+
+| ML Model | Accuracy | AUC | Precision | Recall | F1 Score | MCC |
+|-----------|---------:|----:|----------:|-------:|---------:|----:|
+| Logistic Regression | **0.9649** | **0.9960** | **0.9750** | **0.9286** | **0.9512** | **0.9245** |
+| Decision Tree | **0.9298** | **0.9246** | **0.9048** | **0.9048** | **0.9048** | **0.8492** |
+| K-Nearest Neighbors (KNN) | **0.9561** | **0.9823** | **0.9744** | **0.9048** | **0.9383** | **0.9058** |
+| Naive Bayes | **0.9386** | **0.9934** | **1.0000** | **0.8333** | **0.9091** | **0.8715** |
+| Random Forest (Ensemble) | **0.9737** | **0.9929** | **1.0000** | **0.9286** | **0.9630** | **0.9442** |
+
+---
+
+# 📈 Model Performance Observations
+
+| ML Model | Observation about Model Performance |
+|-----------|-------------------------------------|
+| **Logistic Regression** | Achieved excellent overall performance with high accuracy, precision, recall, and ROC-AUC. It serves as a strong baseline model for this dataset. |
+| **Decision Tree** | Produced good classification results but achieved the lowest overall accuracy and MCC among all models. The model is more susceptible to overfitting. |
+| **K-Nearest Neighbors (KNN)** | Demonstrated strong classification performance with high precision and accuracy. However, its recall was slightly lower than Logistic Regression and Random Forest. |
+| **Naive Bayes** | Achieved perfect precision (1.0000), indicating no false positive predictions for malignant cases. However, its lower recall suggests that some malignant tumors were missed. |
+| **Random Forest (Ensemble)** | Delivered the highest overall performance across nearly all evaluation metrics. It achieved the best balance between accuracy, precision, recall, F1-score, MCC, and ROC-AUC, making it the most reliable model for this dataset. |
+
+---
+
+# 🏆 Overall Winner
+
+## Random Forest (Ensemble)
+
+Random Forest achieved the highest overall performance on the Breast Cancer Wisconsin Dataset.
+
+### Reasons
+
+- Highest Accuracy (**97.37%**)
+- Perfect Precision (**100%**)
+- Highest F1 Score
+- Highest Matthews Correlation Coefficient (MCC)
+- Excellent ROC-AUC Score
+- Best overall balance between false positives and false negatives
+
+Therefore, **Random Forest (Ensemble)** is selected as the best-performing model for this classification task.
 
 ---
 
 # 📊 Evaluation Metrics
 
-Each model is evaluated using:
+The following evaluation metrics were used to compare the Machine Learning models:
 
 - Accuracy
 - Precision
@@ -116,62 +150,54 @@ machine-learning-assignment/
 ├── app.py
 ├── train.py
 ├── evaluate.py
-├── analysis.ipynb
 ├── README.md
 ├── requirements.txt
-├── test_data.csv
 │
 ├── dataset/
-│     └── data.csv
+│     ├── data.csv
+│     └── test_data.csv
 │
 ├── models/
 │     ├── logistic.pkl
 │     ├── decision_tree.pkl
 │     ├── knn.pkl
 │     ├── naive_bayes.pkl
-│     ├── random_forest.pkl
-│     └── scaler.pkl
+│     └── random_forest.pkl
 │
-├── outputs/
-│     ├── metrics.csv
-│     ├── logistic_regression_cm.png
-│     ├── decision_tree_cm.png
-│     ├── knn_cm.png
-│     ├── naive_bayes_cm.png
-│     └── random_forest_cm.png
+├── notebooks/
+│     └── analysis.ipynb
+│
+└── outputs/
+      ├── metrics.csv
+      ├── logistic_regression_cm.png
+      ├── decision_tree_cm.png
+      ├── knn_cm.png
+      ├── naive_bayes_cm.png
+      └── random_forest_cm.png
 ```
 
 ---
 
-# 🚀 How to Run
+# 🚀 How to Run the Project
 
-## 1. Clone Repository
+## Clone the Repository
 
 ```bash
-git clone <YOUR_GITHUB_REPOSITORY_LINK>
+git clone https://github.com/NEURO009/machine-learning-assignment-.git
 ```
 
----
-
-## 2. Navigate to Project
+## Navigate to Project
 
 ```bash
-cd machine-learning-assignment
+cd machine-learning-assignment-
 ```
 
----
-
-## 3. Create Virtual Environment
+## Create Virtual Environment
 
 ### Windows
 
 ```bash
 python -m venv .venv
-```
-
-Activate
-
-```bash
 .venv\Scripts\activate
 ```
 
@@ -179,41 +205,28 @@ Activate
 
 ```bash
 python3 -m venv .venv
-```
-
-Activate
-
-```bash
 source .venv/bin/activate
 ```
 
----
-
-## 4. Install Dependencies
+## Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
----
-
-## 5. Train Models
+## Train Models
 
 ```bash
 python train.py
 ```
 
----
-
-## 6. Evaluate Models
+## Evaluate Models
 
 ```bash
 python evaluate.py
 ```
 
----
-
-## 7. Launch Streamlit Application
+## Run the Streamlit Application
 
 ```bash
 streamlit run app.py
@@ -221,35 +234,28 @@ streamlit run app.py
 
 ---
 
-# 🌐 Streamlit Application
+# 🌐 GitHub Repository
 
-The application allows users to:
+**Repository Link**
 
-- Upload a CSV test dataset
-- Select any trained model
-- Generate predictions
-- View evaluation metrics
-- Visualize the confusion matrix
-- Download prediction results
+https://github.com/NEURO009/machine-learning-assignment-
 
 ---
 
-# 📈 Results
+# 🚀 Streamlit Community Cloud Deployment
 
-The trained models are compared using:
+**Live Application**
 
-- Accuracy
-- Precision
-- Recall
-- F1 Score
-- ROC-AUC
-- MCC
+https://esvuxhue4ozvce6yntqtza.streamlit.app
 
-The comparison results are automatically saved in:
+The Streamlit application provides the following functionality:
 
-```
-outputs/metrics.csv
-```
+- Upload test dataset (.csv)
+- Select one of the trained Machine Learning models
+- Generate predictions
+- View evaluation metrics
+- Display confusion matrix
+- Download prediction results
 
 ---
 
@@ -257,25 +263,19 @@ outputs/metrics.csv
 
 ## Home Page
 
-(Add Screenshot)
+*(Add Home Page Screenshot)*
 
----
+## Model Performance
 
-## Model Evaluation
-
-(Add Screenshot)
-
----
+*(Add Metrics Screenshot)*
 
 ## Confusion Matrix
 
-(Add Screenshot)
-
----
+*(Add Confusion Matrix Screenshot)*
 
 ## Prediction Results
 
-(Add Screenshot)
+*(Add Prediction Results Screenshot)*
 
 ---
 
@@ -302,6 +302,3 @@ outputs/metrics.csv
 
 ---
 
-# 📄 License
-
-This project is developed for educational purposes as part of an academic assignment.
