@@ -217,13 +217,6 @@ if uploaded_file is not None:
 
     csv = results.to_csv(index=False).encode("utf-8")
 
-    st.download_button(
-        label="📥 Download Prediction Results",
-        data=csv,
-        file_name="prediction_results.csv",
-        mime="text/csv"
-    )
-
     # DOWNLOAD BUTTON
 
     csv = results.to_csv(index=False).encode("utf-8")
