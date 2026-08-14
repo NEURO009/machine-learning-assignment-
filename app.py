@@ -197,21 +197,34 @@ if uploaded_file is not None:
 
     st.pyplot(fig)
 
-    # --------------------------------------------------------
-    # PREDICTIONS
-    # --------------------------------------------------------
+    # PREDICTION RESULTS
 
     st.header("🔍 Prediction Results")
 
-    results = df.copy()
+    results = pd.DataFrame({
+        "Actual Diagnosis": y.map({0: "Benign", 1: "Malignant"}),
+        "Predicted Diagnosis": pd.Series(predictions).map({0: "Benign", 1: "Malignant"})
+    })
 
-    results["Predicted Diagnosis"] = predictions
+    results["Prediction Status"] = results.apply(
+        lambda row: "✅ Correct"
+        if row["Actual Diagnosis"] == row["Predicted Diagnosis"]
+        else "❌ Incorrect",
+        axis=1
+    )
 
     st.dataframe(results, use_container_width=True)
 
-    # --------------------------------------------------------
+    csv = results.to_csv(index=False).encode("utf-8")
+
+    st.download_button(
+        label="📥 Download Prediction Results",
+        data=csv,
+        file_name="prediction_results.csv",
+        mime="text/csv"
+    )
+
     # DOWNLOAD BUTTON
-    # --------------------------------------------------------
 
     csv = results.to_csv(index=False).encode("utf-8")
 
@@ -226,9 +239,7 @@ else:
 
     st.info("👈 Select a model from the sidebar and upload **test_data.csv** to begin evaluation.")
 
-# ------------------------------------------------------------
 # FOOTER
-# ------------------------------------------------------------
 
 st.markdown("---")
 
